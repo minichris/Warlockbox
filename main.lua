@@ -364,7 +364,7 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
     end
 end
 
-SlashCmdList['MYADDON_SLASHCMD'] = function(msg)
+SlashCmdList['WARLOCKBOX_SLASHCMD'] = function(msg)
     if(msg == "demon toggle" or msg == "dt") then
         if (Settings.ShowIcon) then
             Settings.ShowIcon = false
@@ -428,8 +428,8 @@ SlashCmdList['MYADDON_SLASHCMD'] = function(msg)
         print("Your highest ever amount of empowered demons at once is "..Settings.HighestEmpoweredCount)
     end
 end
-SLASH_MYADDON_SLASHCMD1 = '/wlb'
-SLASH_MYADDON_SLASHCMD2 = '/warlockbox'
+SLASH_WARLOCKBOX_SLASHCMD1 = '/wlb'
+SLASH_WARLOCKBOX_SLASHCMD2 = '/warlockbox'
 
 WarlockboxGUI:SetScript("OnEvent", function(self, event, ...)
     self[event](self, event, ...)

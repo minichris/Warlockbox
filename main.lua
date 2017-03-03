@@ -15,6 +15,21 @@ local CurrentDemon = "Succubus"
 local EmpowermentTimeLeft = 0
 local EmpowermentcastingTime = 1.5 --1.5 seconds is the default amount of time
 
+local DemonicTable = {
+    ["1863"] = "Succubus",
+    ["416"] = "Imp",
+    ["58959"] = "Imp",
+    ["1860"] = "Voidwalker",
+    ["58960"] = "Voidwalker",
+    ["417"] = "Felhunter",
+    ["17252"] = "Felguard",
+    ["11859"] = "Doomguard",
+    ["89"] = "Infernal",
+    ["58964"] = "Observer",
+    ["58963"] = "Shivarra",
+    ["58965"] = "Wrathguard"
+}
+
 local function ShowWindow(bool)
     if(Settings.HideOutOfCombat) then
         if(bool and InCombatLockdown()) then
@@ -326,7 +341,10 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
     -- if the warlock has a pet
     if(UnitExists("pet")) then
         petActive = 1
-        CurrentDemon = UnitCreatureFamily("pet")
+        
+        local PetNPCID = select(6,strsplit("-",UnitGUID("pet")))
+        CurrentDemon = DemonicTable[PetNPCID]
+        
         if(CurrentDemon ~= nil) then --if its not a Enslaved demon
             WarlockboxGUIImp:SetWidth(75)
             WarlockboxGUIImp:SetHeight(75)

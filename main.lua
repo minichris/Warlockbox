@@ -16,6 +16,7 @@ local EmpowermentTimeLeft = 0
 local EmpowermentcastingTime = 1.5 --1.5 seconds is the default amount of time
 
 local DemonicTable = {
+    --Regular warlock pet codes
     ["1863"] = "Succubus",
     ["416"] = "Imp",
     ["58959"] = "Imp",
@@ -27,7 +28,12 @@ local DemonicTable = {
     ["89"] = "Infernal",
     ["58964"] = "Observer",
     ["58963"] = "Shivarra",
-    ["58965"] = "Wrathguard"
+    ["58965"] = "Wrathguard",
+    --Summoned pets
+    ["55659"] = "Wild Imp",
+    ["98035"] = "Dreadstalker",
+    ["99737"] = "Wild Imp" -- the ones on top of dreadstalkers
+    --Doomguard and infernal should be the same
 }
 
 local function ShowWindow(bool)
@@ -211,11 +217,10 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
 	local compTime = GetTime()
 	local combatEvent = select(1, ...)
 	local sourceGUID = select(3, ...)
-	local sourceName = select(4, ...)
 	local destGUID = select(7, ...)
-	local destName = select(8, ...)
     local spellId = select(11, ...)
-    local spellName = select(12, ...)
+    local destNPCID = select(6,strsplit("-",destGUID))
+    local DemonName = DemonicTable[destNPCID]
 		
 	-- time out any demons
 	for index, value in pairs(demonTime) do
@@ -278,7 +283,7 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
     end
 	
 	-- imp summoned
-	if combatEvent == "SPELL_SUMMON" and destName == "Wild Imp" and sourceGUID == playerGUID then
+	if combatEvent == "SPELL_SUMMON" and DemonName == "Wild Imp" and sourceGUID == playerGUID then
 		demonTime[destGUID] = compTime + 12 --Imps last 12 seconds
         demonEmpowered[destGUID] = nil
 		demonCount = demonCount + 1
@@ -288,7 +293,7 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
 	end
     
     -- Dreadstalker summoned
-	if combatEvent == "SPELL_SUMMON" and destName == "Dreadstalker" and sourceGUID == playerGUID then
+	if combatEvent == "SPELL_SUMMON" and DemonName == "Dreadstalker" and sourceGUID == playerGUID then
 		demonTime[destGUID] = compTime + 12 --Dreadstalkers last 12 seconds
         demonEmpowered[destGUID] = nil
 		demonCount = demonCount + 1
@@ -298,7 +303,7 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
 	end
     
     -- Doomguard summoned
-	if combatEvent == "SPELL_SUMMON" and destName == "Doomguard" and sourceGUID == playerGUID and not IsSpellKnown(152107) then
+	if combatEvent == "SPELL_SUMMON" and DemonName == "Doomguard" and sourceGUID == playerGUID and not IsSpellKnown(152107) then
 		demonTime[destGUID] = compTime + 25 --Doomguard last 25 seconds
         demonEmpowered[destGUID] = nil
 		demonCount = demonCount + 1
@@ -308,7 +313,7 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
 	end
     
     -- Infernal summoned
-	if combatEvent == "SPELL_SUMMON" and destName == "Infernal" and sourceGUID == playerGUID and not IsSpellKnown(152107) then
+	if combatEvent == "SPELL_SUMMON" and DemonName == "Infernal" and sourceGUID == playerGUID and not IsSpellKnown(152107) then
 		demonTime[destGUID] = compTime + 25 --Infernal last 25 seconds
         demonEmpowered[destGUID] = nil
 		demonCount = demonCount + 1
@@ -318,7 +323,7 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
 	end
     
     -- Darkglare summoned
-	if combatEvent == "SPELL_SUMMON" and destName == "Darkglare" and sourceGUID == playerGUID then
+	if combatEvent == "SPELL_SUMMON" and DemonName == "Darkglare" and sourceGUID == playerGUID then
 		demonTime[destGUID] = compTime + 12 --Darkglare last 12 seconds
         demonEmpowered[destGUID] = nil
 		demonCount = demonCount + 1
@@ -329,7 +334,7 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
     
     -- Grimoire of Service summon
 	if combatEvent == "SPELL_SUMMON" and sourceGUID == playerGUID then
-		if(strfind(spellName, "Grimoire:") ~= nil) then --if it is a grimoire summon
+		if(spellId == 111859 or spellId == 111897 or spellId == 111898 or spellId == 111896 or spellId == 111895) then --if it is a grimoire summon
             demonTime[destGUID] = compTime + 25 --Grimoire of Service summon last 25 seconds
             demonEmpowered[destGUID] = nil
             demonCount = demonCount + 1

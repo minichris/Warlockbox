@@ -365,13 +365,11 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
             WarlockboxGUIImp:SetHeight(37)
             WarlockboxGUIImp:SetTexture("Interface\\Icons\\spell_shadow_enslavedemon")
         end
-        
-        petEmpowered = 0
-        for i = 1, 20 do
-            local BuffID = select(11,UnitBuff("pet", i))
-            if (BuffID == 193396) then
-                petEmpowered = 1
-            end
+              
+        if(UnitHasBuff("pet", 193396)) then
+            petEmpowered = 1
+        else
+            petEmpowered = 0
         end
         
     else

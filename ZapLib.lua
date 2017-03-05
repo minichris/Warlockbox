@@ -1,3 +1,5 @@
+--v1.2
+
 function ZapLib_FrameMoveable(unlock, movframe)
     if(unlock) then
         -- frame movement
@@ -25,4 +27,15 @@ function ZapLib_BoolToString(bool)
     else
         return "no"
     end
+end
+
+function UnitHasBuff(Unit, ID)
+    local HasBuff = false;
+    for i = 1, 40 do
+        local BuffID = select(11,UnitBuff(Unit, i));
+        if (BuffID == ID) then
+            HasBuff = true;
+        end
+    end
+    return HasBuff;
 end

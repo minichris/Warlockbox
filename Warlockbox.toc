@@ -1,7 +1,8 @@
-## Interface: 70100
+## Interface: 70200
+## X-Min-Interface: 70000
 ## Title: Warlockbox
 ## Author: Zaperox
-## Version: 0.35c
+## Version: 0.35e
 ## Notes: Displays the amount of active demons and how many are empowered. Use /wlb for help.
 ## SavedVariables: WARLOCKBOX_SETTINGS
 

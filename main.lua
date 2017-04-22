@@ -18,6 +18,8 @@ local EmpowermentcastingTime = 1.5 --1.5 seconds is the default amount of time
 local DemonicTable = {
     --Regular warlock pet codes
     ["1863"] = "Succubus",
+    ["120527"] = "Succubus",
+    ["120526"] = "Succubus",
     ["416"] = "Imp",
     ["58959"] = "Imp",
     ["1860"] = "Voidwalker",
@@ -357,8 +359,11 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
                 WarlockboxGUIImp:SetTexture("Interface\\AddOns\\Warlockbox\\Imp.tga")
             elseif(CurrentDemon == "Voidlord") then
                 WarlockboxGUIImp:SetTexture("Interface\\AddOns\\Warlockbox\\Voidwalker.tga")
+            elseif(CurrentDemon == "Wrathguard") then
+                WarlockboxGUIImp:SetTexture("Interface\\AddOns\\Warlockbox\\Felguard.tga")
             else
                 WarlockboxGUIImp:SetTexture("Interface\\AddOns\\Warlockbox\\"..CurrentDemon..".tga")
+                print("Interface\\AddOns\\Warlockbox\\"..CurrentDemon..".tga")
             end
         else
             WarlockboxGUIImp:SetWidth(37)

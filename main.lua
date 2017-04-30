@@ -363,7 +363,6 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
                 WarlockboxGUIImp:SetTexture("Interface\\AddOns\\Warlockbox\\Felguard.tga")
             else
                 WarlockboxGUIImp:SetTexture("Interface\\AddOns\\Warlockbox\\"..CurrentDemon..".tga")
-                print("Interface\\AddOns\\Warlockbox\\"..CurrentDemon..".tga")
             end
         else
             WarlockboxGUIImp:SetWidth(37)

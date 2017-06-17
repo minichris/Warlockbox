@@ -5,7 +5,9 @@ defaults = {
     HighestDemonCount = 0,
     HighestEmpoweredCount = 0,
     HideOutOfCombat = false,
-    HideOutOfDemonology = true
+    HideOutOfDemonology = true,
+	HighestConsumptionCount = 0,
+	HighestEmpoweredConsumptionCount = 0
 }
 
 local frame = CreateFrame("FRAME"); -- Need a frame to respond to events
@@ -19,19 +21,28 @@ function frame:OnEvent(event, arg1)
         end
         Settings = WARLOCKBOX_SETTINGS;
         
-        --Update 1.32 added setting section
+        --Update 0.32 added setting section
         if((Settings.HighestDemonCount == nil) or (Settings.HighestEmpoweredCount == nil)) then
             Settings.HighestDemonCount = 0
             Settings.HighestEmpoweredCount = 0
         end
         
-        --Update 1.33 added setting section
+        --Update 0.33 added setting section
         if(Settings.HideOutOfCombat == nil) then
             Settings.HideOutOfCombat = false
         end
         
         if(Settings.HideOutOfDemonology == nil) then
             Settings.HideOutOfDemonology = true
+        end
+		
+		--Update 0.36 added setting section
+		if(Settings.HighestConsumptionCount == nil) then
+            Settings.HighestConsumptionCount = 0
+        end
+
+		if(Settings.HighestEmpoweredConsumptionCount == nil) then
+            Settings.HighestEmpoweredConsumptionCount = 0
         end
     elseif event == "PLAYER_LOGOUT" then
         WARLOCKBOX_SETTINGS = Settings;

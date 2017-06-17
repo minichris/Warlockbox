@@ -390,6 +390,16 @@ function WarlockboxGUI:COMBAT_LOG_EVENT_UNFILTERED(self, event, ...)
     if(Settings.HighestEmpoweredCount < (empowered_demonCount + petEmpowered)) then
         Settings.HighestEmpoweredCount = empowered_demonCount + petEmpowered
     end
+	
+	--Thal'kiel's Consumption highscore
+	if combatEvent == "SPELL_CAST_SUCCESS" and sourceGUID == UnitGUID("player") and spellId == 211714 then
+		if(Settings.HighestEmpoweredConsumptionCount < (empowered_demonCount + petEmpowered)) then
+			Settings.HighestEmpoweredConsumptionCount = empowered_demonCount + petEmpowered
+		end
+		if(Settings.HighestConsumptionCount < (demonCount + petActive)) then
+			Settings.HighestConsumptionCount = demonCount + petActive
+		end
+	end
 end
 
 SlashCmdList['WARLOCKBOX_SLASHCMD'] = function(msg)
@@ -452,8 +462,10 @@ SlashCmdList['WARLOCKBOX_SLASHCMD'] = function(msg)
         print("/wlb ft - Change the font. Current font is default: "..ZapLib_BoolToString(not Settings.UseEggo))
         print("/wlb ct - Toggle if the window is shown out of combat. Currently hidden out of combat: "..ZapLib_BoolToString(Settings.HideOutOfCombat))
         print("/wlb st - Toggle the showing of the window when not in Demonology spec. Currently hidden out of spec: "..ZapLib_BoolToString(Settings.HideOutOfDemonology))
-        print("Your highest ever amount of demons summoned at once is "..Settings.HighestDemonCount)
-        print("Your highest ever amount of empowered demons at once is "..Settings.HighestEmpoweredCount)
+        print("Your highest ever demons summoned at once is "..Settings.HighestDemonCount)
+        print("Your highest ever empowered demons at once is "..Settings.HighestEmpoweredCount)
+        print("Your highest ever amount of demons when Thal'kiel's Consumption is cast is "..Settings.HighestConsumptionCount)
+        print("Your highest ever amount of empowered demons when Thal'kiel's Consumption is cast is "..Settings.HighestEmpoweredConsumptionCount)
     end
 end
 SLASH_WARLOCKBOX_SLASHCMD1 = '/wlb'
